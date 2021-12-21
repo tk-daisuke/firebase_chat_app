@@ -1,6 +1,5 @@
 import 'package:firebase_template_app/service/auth/firebase_auth_service.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
-import 'package:firebase_template_app/view/ui/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +24,7 @@ class RootModel extends ChangeNotifier {
       //ログアウト中
     } else {
       Future.delayed(Duration.zero,
-          () => Navigator.pushReplacementNamed(context, WelcomeScreen.id));
+          () => Navigator.pushReplacementNamed(context, '/sign_in'));
     }
   }
 }

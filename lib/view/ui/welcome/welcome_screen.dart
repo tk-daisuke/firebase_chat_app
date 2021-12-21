@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                           );
                         });
                   },
-                  child: Text(''))
+                  child: const Text(''))
             ],
           ),
         ),

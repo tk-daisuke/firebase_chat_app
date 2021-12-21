@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('SignInScreen');
+                    Navigator.of(context).pushNamed('/profile');
                   },
-                  child: Text('a'))
+                  child: const Text('a'))
             ],
           ),
         ),

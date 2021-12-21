@@ -18,6 +18,7 @@ class RootScreen extends ConsumerWidget {
         data: (TrackingStatus value) {
           // ログイン状態を確認
           final _model = ref.watch(rootProvider);
+          
           _model.loginCheck(
             context,
           );

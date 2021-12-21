@@ -1,11 +1,13 @@
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';
 import 'package:firebase_template_app/view/ui/welcome/welcome_screen.dart';
+import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutterfire_ui/auth.dart';
-
+// arch -x86_64 pod install
+// arch -x86_64 pod repo update
+// arch -x86_64 pod install --repo-update
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _fireUI = FlutterFireUIList();
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -28,44 +31,9 @@ class MyApp extends StatelessWidget {
           RootScreen.id: (context) => const RootScreen(),
           HomeScreen.id: (context) => const HomeScreen(),
           WelcomeScreen.id: (context) => const WelcomeScreen(),
-          'SignInScreen': (context) {
-            return SignInScreen(
-              actions: [
-                ForgotPasswordAction((context, email) {
-                  Navigator.pushNamed(
-                    context,
-                    '/forgot-password',
-                    arguments: {'email': email},
-                  );
-                }),
-                VerifyPhoneAction((context, _) {
-                  Navigator.pushNamed(context, '/phone');
-                }),
-                AuthStateChangeAction<SignedIn>((context, state) {
-                  Navigator.pushReplacementNamed(context, '/profile');
-                }),
-                EmailLinkSignInAction((context) {
-                  Navigator.pushReplacementNamed(
-                      context, '/email-link-sign-in');
-                }),
-              ],
-              headerBuilder: (context, constraints, _) {
-                return headerImage(
-                    'https://firebase.flutter.dev/img/flutterfire_300x.png');
-              },
-              providerConfigs: [],
-            );
-          }
+          '/sign_in': (context) => _fireUI.signIn(),
+          '/profile': (context) => _fireUI.profileScreen(),
+          '/forgot-password': (context) => _fireUI.forgotPasswordScreen(context)
         });
-  }
-
-  Padding headerImage(String image) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Image.network(image),
-      ),
-    );
   }
 }
