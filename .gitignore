@@ -107,3 +107,6 @@ app.*.symbols
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 GoogleService-Info.plist
+
+#api_key
+lib/data/keys.dart
