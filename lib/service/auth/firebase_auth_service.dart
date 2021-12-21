@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final firebaseAuthProvider = StateNotifierProvider<FirebaseAuthService, User?>(
@@ -20,11 +19,12 @@ class FirebaseAuthService extends StateNotifier<User?> {
     });
   }
   final _auth = FirebaseAuth.instance;
-
   String? get firebaseUID => state!.uid;
-  Future<UserCredential> signUpAnonymously() => _auth.signInAnonymously();
-  deleteUser() => state!.delete();
+  // Future<UserCredential> signUpAnonymously() => _auth.signInAnonymously();
+  // deleteUser() => state!.delete();
 }
+
+
 
 // abstract class FirebaseAuthBase {
 //   Stream<User> get userChanges;
