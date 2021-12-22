@@ -110,3 +110,4 @@ GoogleService-Info.plist
 
 #api_key
 lib/data/keys.dart
+*/Info.plist
