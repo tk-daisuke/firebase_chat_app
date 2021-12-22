@@ -12,20 +12,23 @@ class RootScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //ios のATTを確認
     final _att = ref.watch(attFutureProvider);
+
     return _att.when(
-        loading: () => const _Loading(),
-        error: (error, stack) => Text('Error: $error'),
-        data: (TrackingStatus value) {
-          // ログイン状態を確認
-          final _model = ref.watch(rootProvider);
-          
-          _model.loginCheck(
-            context,
-          );
-          return const Scaffold(
-            body: _Loading(),
-          );
-        });
+      loading: () => const _Loading(),
+      error: (error, stack) => Text('Error: $error'),
+      data: (
+        TrackingStatus value,
+      ) {
+        // ログイン状態を確認
+        final _model = ref.watch(rootProvider);
+
+        _model.loginCheck(context);
+
+        return const Scaffold(
+          body: _Loading(),
+        );
+      },
+    );
   }
 }
 

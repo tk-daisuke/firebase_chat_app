@@ -9,6 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final emailContoroller = TextEditingController();
+    
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -17,23 +18,27 @@ class WelcomeScreen extends StatelessWidget {
               EmailInput(
                 initialValue: 'a',
                 controller: emailContoroller,
-                onSubmitted: (String value) {},
+                onSubmitted: (String value) {
+                  print('object');
+                },
               ),
               ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Expanded(
-                            child: EmailSignUpDialog(
-                              auth: FirebaseAuth.instance,
-                              action: AuthAction.signUp,
-                              config: const EmailProviderConfiguration(),
-                            ),
-                          );
-                        });
-                  },
-                  child: const Text(''))
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Expanded(
+                        child: EmailSignUpDialog(
+                          auth: FirebaseAuth.instance,
+                          action: AuthAction.signUp,
+                          config: const EmailProviderConfiguration(),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: const Text(''),
+              ),
             ],
           ),
         ),

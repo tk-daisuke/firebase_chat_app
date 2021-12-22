@@ -1,3 +1,4 @@
+import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,10 +13,11 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/profile');
-                  },
-                  child: const Text('a'))
+                onPressed: () {
+                  Navigator.of(context).pushNamed(FlutterFireProfileScreen.id);
+                },
+                child: const Text('a'),
+              ),
             ],
           ),
         ),

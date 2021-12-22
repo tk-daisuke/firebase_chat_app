@@ -27,8 +27,7 @@ class Dialog {
                   // style: TextStyle(color: kButtonText),
                 ),
               ),
-              onPressed: () =>
-                  _urlLaunch.launchURL(url),
+              onPressed: () => _urlLaunch.launchURL(url),
             ),
           ],
         );
