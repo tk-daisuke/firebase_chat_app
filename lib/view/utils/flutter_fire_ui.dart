@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_template_app/data/keys.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +64,14 @@ class FlutterFireSignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String appid;
+    if (Platform.isAndroid) {
+      appid = kFirebaseAndroidAppID;
+    } else if (Platform.isIOS) {
+      appid = kFirebaseIosAppID;
+    } else {
+      appid = '';
+    }
     return SignInScreen(
       auth: _auth,
       actions: [
@@ -71,21 +82,18 @@ class FlutterFireSignInScreen extends StatelessWidget {
             arguments: {'email': email},
           );
         }),
-        // VerifyPhoneAction((context, _) {
-        //   Navigator.pushNamed(context, '/phone');
-        // }),
         AuthStateChangeAction<SignedIn>((context, state) {
           Navigator.pushReplacementNamed(context, HomeScreen.id);
         }),
-        // EmailLinkSignInAction((context) {
-        //   Navigator.pushReplacementNamed(context, '/email-link-sign-in');
-        // }),
       ],
       headerBuilder: (context, constraints, _) {
         return headerImage(
             'https://firebase.flutter.dev/img/flutterfire_300x.png');
       },
-      providerConfigs: const [],
+      providerConfigs: [
+        const EmailProviderConfiguration(),
+        GoogleProviderConfiguration(clientId: appid),
+      ],
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterfire_ui/i10n.dart';
 
 // arch -x86_64 pod install
 // arch -x86_64 pod repo update
@@ -28,6 +29,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ja', ''), // 日本語
+      ],
       initialRoute: RootScreen.id,
       routes: {
         RootScreen.id: (context) => const RootScreen(),
