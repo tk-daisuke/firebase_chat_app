@@ -1,5 +1,6 @@
-import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,17 +8,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usersQuery =
+        FirebaseFirestore.instance.collection('users').orderBy('name');
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(FlutterFireProfileScreen.id);
+              FirestoreListView<Map<String, dynamic>>(
+                shrinkWrap: true,
+                query: usersQuery,
+                itemBuilder: (context, snapshot) {
+                  Map<String, dynamic> user = snapshot.data();
+
+                  return Text('User name is ${user['name']}');
                 },
-                child: const Text('a'),
-              ),
+              )
             ],
           ),
         ),

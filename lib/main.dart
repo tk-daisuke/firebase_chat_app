@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/data/localize/flutter_fire/flutter_fire_ui_ja.dart';
-import 'package:firebase_template_app/data/localize/flutter_fire/ja.dart';
+import 'package:firebase_template_app/view/ui/flutter_fire/fire_forgot_password_screen.dart';
+import 'package:firebase_template_app/view/ui/flutter_fire/fire_profile_screen.dart';
+import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signIn_screen.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
+import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';
 import 'package:firebase_template_app/view/ui/welcome/welcome_screen.dart';
-import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,15 +48,14 @@ class MyApp extends StatelessWidget {
         RootScreen.id: (context) => const RootScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
-        FlutterFireSignInScreen.id: (context) => FlutterFireSignInScreen(
+        FireSignInScreen.id: (context) => FireSignInScreen(
               auth: _auth,
-              forgotPasswordScreenId: FlutterFireForgotPasswordScreen.id,
+              forgotPasswordScreenId: FireForgotPasswordScreen.id,
             ),
-        FlutterFireProfileScreen.id: (context) => FlutterFireProfileScreen(
-              auth: _auth,
-            ),
-        FlutterFireForgotPasswordScreen.id: (context) =>
-            const FlutterFireForgotPasswordScreen(),
+        FireProfileScreen.id: (context) => const FireProfileScreen(),
+        FireForgotPasswordScreen.id: (context) =>
+            const FireForgotPasswordScreen(),
+        NavigatorScreen.id: (context) => const NavigatorScreen()
       },
     );
   }
