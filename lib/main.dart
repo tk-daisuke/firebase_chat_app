@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_template_app/data/localize/flutter_fire/flutter_fire_ui_ja.dart';
+import 'package:firebase_template_app/data/localize/flutter_fire/ja.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';
 import 'package:firebase_template_app/view/ui/welcome/welcome_screen.dart';
@@ -29,10 +31,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: const [
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        FlutterFireUILocalizations.delegate,
+        FlutterFireUIJA()
       ],
       supportedLocales: const [
         Locale('ja', ''), // 日本語
