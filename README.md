@@ -19,7 +19,8 @@ com.example.firebaseTemplateApp
 
 ### GoogleSignIn用
 - ios
-Info bak.plistを「Info.plist」にリネーム
+
+`firebase_template_app/ios/Runner/Info bak.plist`を「Info.plist」にリネーム
 下記のリンク内のiOS integration を追加
 
 https://pub.dev/packages/google_sign_in
