@@ -1,6 +1,6 @@
 import 'package:firebase_template_app/service/auth/firebase_auth_service.dart';
-import 'package:firebase_template_app/view/ui/home/home_screen.dart';
-import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
+import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signIn_screen.dart';
+import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,14 +20,13 @@ class RootModel extends ChangeNotifier {
     if (_user != null) {
       Future.delayed(
         Duration.zero,
-        () => Navigator.pushReplacementNamed(context, HomeScreen.id),
+        () => Navigator.pushReplacementNamed(context, NavigatorScreen.id),
       );
       //ログアウト中
     } else {
       Future.delayed(
         Duration.zero,
-        () =>
-            Navigator.pushReplacementNamed(context, FlutterFireSignInScreen.id),
+        () => Navigator.pushReplacementNamed(context, FireSignInScreen.id),
       );
     }
   }

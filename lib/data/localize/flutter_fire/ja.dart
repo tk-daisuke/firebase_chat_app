@@ -224,8 +224,8 @@ class JaLocalizations extends FlutterFireUILocalizationLabels {
     this.codeRequiredErrorText = '国コードが必要です',
     this.invalidCountryCode = '無効なコード',
     this.chooseACountry = '国を選択してください',
-    this.enableMoreSignInMethods = 'より多くのサインインメソッドを有効にする',
-    this.signInMethods = 'サインインメソッド',
+    this.enableMoreSignInMethods = '他のサービスとの連携',
+    this.signInMethods = '連携中のアカウント',
     this.provideEmail = 'メールアドレスとパスワードを入力してください',
     this.goBackButtonLabel = '戻る',
     this.passwordResetEmailSentText =
@@ -234,7 +234,7 @@ class JaLocalizations extends FlutterFireUILocalizationLabels {
     this.emailLinkSignInButtonLabel = 'マジックリンクでサインイン',
     this.signInWithEmailLinkViewTitleText = 'マジックリンクでサインイン',
     this.signInWithEmailLinkSentText =
-        '魔法のリンクが記載されたメールを送信しました。メールを確認し,リンクをたどってサインインしてください',
+        'マジックリンクが記載されたメールを送信しました。メールを確認し,リンクをたどってサインインしてください',
     this.sendLinkButtonLabel = 'マジックリンクを送信する',
     this.arrayLabel = '配列',
     this.booleanLabel = 'boolean',
