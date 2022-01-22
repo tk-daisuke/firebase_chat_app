@@ -24,11 +24,21 @@ Info bak.plistを「Info.plist」にリネーム
 
 https://pub.dev/packages/google_sign_in
 
+--lib/data/keys.dart
+const kFirebaseIosAppID =   ;
+
+GoogleService-Info.plist内のREVERSED_CLIENT_IDを上記パスへ記入
+
+
 - Android
 下記のリンクを参照
 
 https://pub.dev/packages/google_sign_in
 
+--lib/data/keys.dart
+const kFirebaseAndroidAppID = ;
+
+google-services.json内の  "oauth_client" →"client_id"を上記パスへ記入
 
 # Firebaseの設定
 ### Firebase Auth
