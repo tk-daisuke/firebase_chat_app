@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/service/auth/google_key_helper.dart';
 import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signin_model.dart';
 import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
-import 'package:firebase_template_app/view/utils/flutter_fire_ui.dart';
+import 'package:firebase_template_app/view/utils/header_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -38,7 +38,7 @@ class FireSignInScreen extends ConsumerWidget {
         }),
       ],
       headerBuilder: (context, constraints, _) {
-        return headerImage(
+        return const HeaderImage(
             'https://firebase.flutter.dev/img/flutterfire_300x.png');
       },
       providerConfigs: [

@@ -6,7 +6,6 @@ import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signIn_sc
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
 import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';
-import 'package:firebase_template_app/view/ui/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +46,6 @@ class MyApp extends StatelessWidget {
       routes: {
         RootScreen.id: (context) => const RootScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
-        WelcomeScreen.id: (context) => const WelcomeScreen(),
         FireSignInScreen.id: (context) => FireSignInScreen(
               auth: _auth,
               forgotPasswordScreenId: FireForgotPasswordScreen.id,

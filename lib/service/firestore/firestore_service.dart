@@ -31,7 +31,7 @@ class FirestoreService extends FirebaseFirestoreBase {
           ? 'anonymous'
           : user.providerData[0].providerId;
       await _path.set({
-        'name': user.displayName ?? '',
+        'name': user.displayName ?? 'user',
         'uid': user.uid,
         'provider': providerData,
         'createdAt': serverTimeStamp,

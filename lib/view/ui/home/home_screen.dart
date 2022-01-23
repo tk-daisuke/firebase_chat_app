@@ -8,10 +8,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usersQuery =
-        FirebaseFirestore.instance.collection('users').orderBy('name');
-
+    final usersQuery = FirebaseFirestore.instance.collection('users');
+final chat = FirebaseFirestore.instance.collection('');
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chat'),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
