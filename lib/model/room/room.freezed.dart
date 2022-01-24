@@ -24,7 +24,7 @@ class _$RoomTearOff {
 
   _Room call(
       {required String name,
-      required List<dynamic> entrant,
+      required List<String> entrant,
       @ServerTimestampConverter() required DateTime? createdAT,
       @ServerTimestampConverter() required DateTime? updatedAT}) {
     return _Room(
@@ -46,7 +46,7 @@ const $Room = _$RoomTearOff();
 /// @nodoc
 mixin _$Room {
   String get name => throw _privateConstructorUsedError;
-  List<dynamic> get entrant => throw _privateConstructorUsedError;
+  List<String> get entrant => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
   DateTime? get createdAT => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
@@ -63,7 +63,7 @@ abstract class $RoomCopyWith<$Res> {
       _$RoomCopyWithImpl<$Res>;
   $Res call(
       {String name,
-      List<dynamic> entrant,
+      List<String> entrant,
       @ServerTimestampConverter() DateTime? createdAT,
       @ServerTimestampConverter() DateTime? updatedAT});
 }
@@ -91,7 +91,7 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
       entrant: entrant == freezed
           ? _value.entrant
           : entrant // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<String>,
       createdAT: createdAT == freezed
           ? _value.createdAT
           : createdAT // ignore: cast_nullable_to_non_nullable
@@ -111,7 +111,7 @@ abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
   @override
   $Res call(
       {String name,
-      List<dynamic> entrant,
+      List<String> entrant,
       @ServerTimestampConverter() DateTime? createdAT,
       @ServerTimestampConverter() DateTime? updatedAT});
 }
@@ -140,7 +140,7 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
       entrant: entrant == freezed
           ? _value.entrant
           : entrant // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<String>,
       createdAT: createdAT == freezed
           ? _value.createdAT
           : createdAT // ignore: cast_nullable_to_non_nullable
@@ -168,7 +168,7 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
   @override
   final String name;
   @override
-  final List<dynamic> entrant;
+  final List<String> entrant;
   @override
   @ServerTimestampConverter()
   final DateTime? createdAT;
@@ -225,7 +225,7 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
 abstract class _Room extends Room {
   const factory _Room(
       {required String name,
-      required List<dynamic> entrant,
+      required List<String> entrant,
       @ServerTimestampConverter() required DateTime? createdAT,
       @ServerTimestampConverter() required DateTime? updatedAT}) = _$_Room;
   const _Room._() : super._();
@@ -235,7 +235,7 @@ abstract class _Room extends Room {
   @override
   String get name;
   @override
-  List<dynamic> get entrant;
+  List<String> get entrant;
   @override
   @ServerTimestampConverter()
   DateTime? get createdAT;

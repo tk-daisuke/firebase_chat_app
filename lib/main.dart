@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/data/localize/flutter_fire/flutter_fire_ui_ja.dart';
 import 'package:firebase_template_app/view/ui/flutter_fire/fire_forgot_password_screen.dart';
 import 'package:firebase_template_app/view/ui/flutter_fire/fire_profile_screen.dart';
-import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signIn_screen.dart';
+import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_siginin_screen.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
 import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
 import 'package:firebase_template_app/view/ui/root/root_screen.dart';

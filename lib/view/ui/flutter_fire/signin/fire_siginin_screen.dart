@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/service/auth/google_key_helper.dart';
 import 'package:firebase_template_app/view/ui/flutter_fire/signin/fire_signin_model.dart';
@@ -9,7 +10,7 @@ import 'package:flutterfire_ui/auth.dart';
 
 class FireSignInScreen extends ConsumerWidget {
   const FireSignInScreen({
-      Key? key,
+    Key? key,
     required FirebaseAuth auth,
     required this.forgotPasswordScreenId,
   })  : _auth = auth,

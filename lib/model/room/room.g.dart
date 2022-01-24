@@ -8,7 +8,8 @@ part of 'room.dart';
 
 _$_Room _$$_RoomFromJson(Map<String, dynamic> json) => _$_Room(
       name: json['name'] as String,
-      entrant: json['entrant'] as List<dynamic>,
+      entrant:
+          (json['entrant'] as List<dynamic>).map((e) => e as String).toList(),
       createdAT: const ServerTimestampConverter()
           .fromJson(json['createdAT'] as Timestamp?),
       updatedAT: const ServerTimestampConverter()

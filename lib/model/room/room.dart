@@ -13,7 +13,7 @@ part 'room.g.dart';
 class Room with _$Room {
   const factory Room({
     required String name,
-    required List entrant,
+    required List<String> entrant,
     @ServerTimestampConverter() required DateTime? createdAT,
     @ServerTimestampConverter() required DateTime? updatedAT,
   }) = _Room;
