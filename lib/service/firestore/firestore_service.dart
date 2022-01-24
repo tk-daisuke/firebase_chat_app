@@ -14,15 +14,25 @@ class FirestoreService extends FirebaseFirestoreBase {
   FirestoreService(this._read);
 
   final Reader _read;
-  
-  DocumentReference get _usersQuery {
-    final _auth = FirebaseAuthService(_read);
-    return _firestore.collection('users').doc(_auth.firebaseUID);
+
+  Query<Map<String, dynamic>> fetchProfile(String uid) {
+    final usersQuery = FirebaseFirestore.instance
+        .collection('users')
+        .where('uid', isEqualTo: uid)
+        .limit(1);
+    return usersQuery;
+  }
+
+  Query<Map<String, dynamic>> fetchRoom(String uid) {
+    final usersQuery =
+        FirebaseFirestore.instance.collection('rooms').where('entrant');
+    return usersQuery;
   }
 
   @override
   Future<void> signUp(User user) async {
-    final _path = _usersQuery;
+    final _auth = FirebaseAuthService(_read);
+    final _path = _firestore.collection('users').doc(_auth.firebaseUID);
 
     final _hasData = await _path.get();
     //なかったら作る
@@ -31,8 +41,9 @@ class FirestoreService extends FirebaseFirestoreBase {
           ? 'anonymous'
           : user.providerData[0].providerId;
       await _path.set({
-        'name': user.displayName ?? 'user',
+        'name': user.displayName ?? '',
         'uid': user.uid,
+        'iconURL': user.photoURL ?? '',
         'provider': providerData,
         'createdAt': serverTimeStamp,
       });
