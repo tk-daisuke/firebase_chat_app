@@ -13,9 +13,10 @@ class HomeModel extends ChangeNotifier {
   final Reader _read;
   HomeModel(this._read);
 
-  Query<FireUser> userQuery() {
-    final uid = FirebaseAuthService(_read).firebaseUID;
-    final query = FirestoreService(_read).fetchProfile(uid!);
+  String? get currentUserUID => FirebaseAuthService(_read).firebaseUID;
+
+  Query<FireUser> userQuery(String uid) {
+    final query = FirestoreService(_read).fetchProfile(uid);
     return query.withConverter<FireUser>(
       fromFirestore: (snapshot, _) => FireUser.fromJson(snapshot.data()!),
       toFirestore: (user, _) =>
@@ -25,8 +26,7 @@ class HomeModel extends ChangeNotifier {
   }
 
   Query<Room> roomQuery() {
-    final uid = FirebaseAuthService(_read).firebaseUID;
-    final query = FirestoreService(_read).fetchRoom(uid!);
+    final query = FirestoreService(_read).fetchRoom();
     return query.withConverter<Room>(
       fromFirestore: (snapshot, _) => Room.fromJson(snapshot.data()!),
       toFirestore: (room, _) => room.copyWith().toJson(),
