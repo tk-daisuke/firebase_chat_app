@@ -31,7 +31,7 @@ class FirestoreService extends FirebaseFirestoreBase {
       final _path = _firestore.collection('users').doc(user.uid);
 
       final _userDoc = await _path.get();
-      await _userDocProvider(_userDoc.exists, user, _path);
+      await _userDocProvider(_userDoc, user, _path);
     } else {
       if (kDebugMode) {
         print('user null');
@@ -39,13 +39,14 @@ class FirestoreService extends FirebaseFirestoreBase {
     }
   }
 
-  Future<void> _userDocProvider(bool hasData, User user,
-      DocumentReference<Map<String, dynamic>> _path) async {
+  Future<void> _userDocProvider(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      User user, DocumentReference<Map<String, dynamic>> _path) async {
     final providerData = user.providerData.isEmpty
         ? 'anonymous'
         : user.providerData[0].providerId;
+
     //なかった時
-    if (!hasData) {
+    if (!snapshot.exists) {
       await _path.set({
         'name': user.displayName ?? '',
         'uid': user.uid,
@@ -55,13 +56,17 @@ class FirestoreService extends FirebaseFirestoreBase {
       });
       //あった時
     } else {
-      await _path.update({
-        'name': user.displayName ?? '',
-        // 'uid': user.uid,
-        'iconURL': user.photoURL ?? '',
-        'provider': providerData,
-        'updatedAt': serverTimeStamp,
-      });
+      final String doc = snapshot.data()?['name'];
+      final bool isUpdate = doc != user.displayName;
+      if (isUpdate) {
+        await _path.update({
+          'name': user.displayName ?? '',
+          // 'uid': user.uid,
+          'iconURL': user.photoURL ?? '',
+          'provider': providerData,
+          'updatedAt': serverTimeStamp,
+        });
+      }
     }
   }
 
