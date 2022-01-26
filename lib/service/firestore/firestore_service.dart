@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -56,9 +55,10 @@ class FirestoreService extends FirebaseFirestoreBase {
       });
       //あった時
     } else {
-      final String doc = snapshot.data()?['name'];
-      final bool isUpdate = doc != user.displayName;
-      if (isUpdate) {
+      final doc = snapshot.data();
+      final bool isUserNameChange = doc?['name'] != user.displayName;
+      final bool isPhotoURLChange = doc?['name'] != user.photoURL;
+      if (isUserNameChange || isPhotoURLChange) {
         await _path.update({
           'name': user.displayName ?? '',
           // 'uid': user.uid,
