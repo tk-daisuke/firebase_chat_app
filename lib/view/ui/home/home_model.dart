@@ -3,6 +3,7 @@ import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/service/auth/firebase_auth_service.dart';
 import 'package:firebase_template_app/service/firestore/firestore_service.dart';
+import 'package:firebase_template_app/service/url_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,21 +16,25 @@ class HomeModel extends ChangeNotifier {
 
   String? get currentUserUID => FirebaseAuthService(_read).firebaseUID;
 
-  Query<FireUser> userQuery(String uid) {
-    final query = FirestoreService(_read).fetchProfile(uid);
-    return query.withConverter<FireUser>(
-      fromFirestore: (snapshot, _) => FireUser.fromJson(snapshot.data()!),
-      toFirestore: (user, _) =>
-          FireUser(uid: user.uid, iconURL: user.iconURL, name: user.name)
-              .toJson(),
-    );
+  void refreshButton() => notifyListeners();
+
+  bool urlChecker(String? url) => UrlService().urlChecker(url);
+
+  Query<FireUser> fetchFriendQuery(Room room) {
+    final String _friendProfile = _searchFriendProfile(room);
+    final query = FirestoreService(_read).fetchProfile(_friendProfile);
+    return query;
+  }
+
+  String _searchFriendProfile(Room room) {
+    final _uid = currentUserUID;
+    final String _friendProfile =
+        room.entrant.where((element) => element != _uid).first;
+    return _friendProfile;
   }
 
   Query<Room> roomQuery() {
-    final query = FirestoreService(_read).fetchRoom();
-    return query.withConverter<Room>(
-      fromFirestore: (snapshot, _) => Room.fromJson(snapshot.data()!),
-      toFirestore: (room, _) => room.copyWith().toJson(),
-    );
+    final uid = currentUserUID;
+    return FirestoreService(_read).fetchJoindRoom(uid!);
   }
 }

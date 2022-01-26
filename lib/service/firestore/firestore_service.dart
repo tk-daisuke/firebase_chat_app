@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_template_app/model/fire_user/fire_user.dart';
+import 'package:firebase_template_app/model/room/room.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,14 +18,30 @@ class FirestoreService extends FirebaseFirestoreBase {
   // ignore: unused_field
   final Reader _read;
 
-  Query<Map<String, dynamic>> fetchProfile(String uid) =>
-      FirebaseFirestore.instance
-          .collection('users')
-          .where('uid', isEqualTo: uid)
-          .limit(1);
+  Query<FireUser> fetchProfile(String uid) => _firestore
+      .collection('users')
+      .where('uid', isEqualTo: uid)
+      .limit(1)
+      .withConverter<FireUser>(
+        fromFirestore: (snapshot, _) => FireUser.fromJson(snapshot.data()!),
+        toFirestore: (user, _) =>
+            FireUser(uid: user.uid, iconURL: user.iconURL, name: user.name)
+                .toJson(),
+      );
 
-  Query<Map<String, dynamic>> fetchRoom() =>
-      FirebaseFirestore.instance.collection('rooms').where('entrant');
+  Query<Room> fetchJoindRoom(String uid) => _firestore
+      .collection('rooms')
+      .where('entrant', arrayContains: uid)
+      .withConverter<Room>(
+        fromFirestore: (snapshot, _) => Room.fromJson(snapshot.data()!),
+        toFirestore: (room, _) => room.copyWith().toJson(),
+      );
+
+  Query<Map<String, dynamic>> _fetchFirendRoom(
+          {required String myUID, required String firendUID}) =>
+      _firestore
+          .collection('rooms')
+          .where('entrant', arrayContains: [myUID, firendUID]);
 
   Future<void> userDirectryUpdate(User? user) async {
     if (user != null) {
@@ -78,6 +96,33 @@ class FirestoreService extends FirebaseFirestoreBase {
     //なかったら作る
     if (!_hasData.exists) {
       await userDirectryUpdate(user);
+    }
+  }
+
+  Future<bool> addFriend(
+      {required String friendUID, required String myUID}) async {
+    final _path = _firestore.collection('rooms').doc();
+
+    final _isFriend =
+        await _fetchFirendRoom(myUID: myUID, firendUID: friendUID).get();
+
+    //なかったら作る
+    if (_isFriend.docs.isEmpty) {
+      final room = Room(
+        name: 'name',
+        entrant: [myUID, friendUID],
+      ).toJson()
+        ..['createdAT'] = serverTimeStamp;
+
+      if (kDebugMode) {
+        print(room);
+      }
+      await _path.set(room);
+      //フレンド登録完了
+      return true;
+    } else {
+      //フレンド登録済み
+      return false;
     }
   }
 }
