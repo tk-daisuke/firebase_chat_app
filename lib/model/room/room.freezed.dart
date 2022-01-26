@@ -25,8 +25,8 @@ class _$RoomTearOff {
   _Room call(
       {required String name,
       required List<String> entrant,
-      @ServerTimestampConverter() required DateTime? createdAT,
-      @ServerTimestampConverter() required DateTime? updatedAT}) {
+      @ServerTimestampConverter() DateTime? createdAT,
+      @ServerTimestampConverter() DateTime? updatedAT}) {
     return _Room(
       name: name,
       entrant: entrant,
@@ -159,8 +159,8 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
   const _$_Room(
       {required this.name,
       required this.entrant,
-      @ServerTimestampConverter() required this.createdAT,
-      @ServerTimestampConverter() required this.updatedAT})
+      @ServerTimestampConverter() this.createdAT,
+      @ServerTimestampConverter() this.updatedAT})
       : super._();
 
   factory _$_Room.fromJson(Map<String, dynamic> json) => _$$_RoomFromJson(json);
@@ -226,8 +226,8 @@ abstract class _Room extends Room {
   const factory _Room(
       {required String name,
       required List<String> entrant,
-      @ServerTimestampConverter() required DateTime? createdAT,
-      @ServerTimestampConverter() required DateTime? updatedAT}) = _$_Room;
+      @ServerTimestampConverter() DateTime? createdAT,
+      @ServerTimestampConverter() DateTime? updatedAT}) = _$_Room;
   const _Room._() : super._();
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;

@@ -14,8 +14,8 @@ class Room with _$Room {
   const factory Room({
     required String name,
     required List<String> entrant,
-    @ServerTimestampConverter() required DateTime? createdAT,
-    @ServerTimestampConverter() required DateTime? updatedAT,
+    @ServerTimestampConverter()  DateTime? createdAT,
+    @ServerTimestampConverter()  DateTime? updatedAT,
   }) = _Room;
   // ignore: unused_element
   const Room._();
