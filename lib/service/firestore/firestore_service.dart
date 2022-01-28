@@ -37,11 +37,10 @@ class FirestoreService extends FirebaseFirestoreBase {
         toFirestore: (room, _) => room.copyWith().toJson(),
       );
 
-  Query<Map<String, dynamic>> _fetchFirendRoom(
-          {required String myUID, required String firendUID}) =>
-      _firestore
-          .collection('rooms')
-          .where('entrant', arrayContains: [myUID, firendUID]);
+  // Query<Map<String, dynamic>> _fetchFirendRoom(
+  //         {required String myUID, required String firendUID}) =>
+  //     _firestore.collection('rooms').where('entrant',
+  //         whereIn: [myUID]);
 
   Future<void> userDirectryUpdate(User? user) async {
     if (user != null) {
@@ -103,20 +102,18 @@ class FirestoreService extends FirebaseFirestoreBase {
       {required String friendUID, required String myUID}) async {
     final _path = _firestore.collection('rooms').doc();
 
-    final _isFriend =
-        await _fetchFirendRoom(myUID: myUID, firendUID: friendUID).get();
+    final _joindRoom = await fetchJoindRoom(myUID).get();
+    final _rooms = _joindRoom.docs.map((e) => e.data()).toList();
+    final _friendCheck = _isFriendIncluded(_rooms, friendUID);
 
-    //なかったら作る
-    if (_isFriend.docs.isEmpty) {
+    // なかったら作る
+    if (_friendCheck) {
       final room = Room(
         name: 'name',
         entrant: [myUID, friendUID],
       ).toJson()
         ..['createdAT'] = serverTimeStamp;
 
-      if (kDebugMode) {
-        print(room);
-      }
       await _path.set(room);
       //フレンド登録完了
       return true;
@@ -124,5 +121,14 @@ class FirestoreService extends FirebaseFirestoreBase {
       //フレンド登録済み
       return false;
     }
+  }
+
+  bool _isFriendIncluded(List<Room> _joindRoom, String friendUID) {
+    final _uidList = _joindRoom.map((room) {
+      final where = room.entrant.where((uid) => uid != friendUID);
+      return where.toList();
+    }).toList();
+
+    return _uidList.isEmpty;
   }
 }
