@@ -28,15 +28,19 @@ dependencies:
   # version管理
   package_info_plus: ^1.3.0 #https://pub.dev/packages/package_info_plus
   version: ^2.0.0 #https://pub.dev/packages/version
-  # iOS ATT
-  app_tracking_transparency: ^2.0.2 #https://pub.dev/packages/app_tracking_transparency/install
   #widget
   flutter_progress_hud: ^2.0.0 #https://pub.dev/packages/flutter_progress_hud
   auto_size_text: ^3.0.0
   flutterfire_ui: ^0.3.1 #https://pub.dev/packages/flutterfire_ui
-
   # 翻訳
   intl: ^0.17.0 #https://pub.dev/packages/intl/install
+  #QR code
+  qr_flutter: ^4.0.0 #https://pub.dev/packages/qr_flutter
+  flutter_barcode_scanner: ^2.0.0 #https://pub.dev/packages/flutter_barcode_scanner
+  #権限
+  app_tracking_transparency: ^2.0.2 #https://pub.dev/packages/app_tracking_transparency/install
+
+
 
 
 dev_dependencies:
