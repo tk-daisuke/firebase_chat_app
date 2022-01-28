@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/data/localize/flutter_fire/flutter_fire_ui_ja.dart';
+import 'package:firebase_template_app/view/ui/firend_add/firend_add_screen.dart';
 import 'package:firebase_template_app/view/ui/forgot_password/fire_forgot_password_screen.dart';
 import 'package:firebase_template_app/view/ui/profile/fire_profile_screen.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         FireProfileScreen.id: (context) => const FireProfileScreen(),
         FireForgotPasswordScreen.id: (context) =>
             const FireForgotPasswordScreen(),
+        FriendAddScreen.id: (context) => const FriendAddScreen(),
         NavigatorScreen.id: (context) => const NavigatorScreen()
       },
     );
