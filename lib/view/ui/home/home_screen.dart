@@ -1,4 +1,6 @@
+import 'package:firebase_template_app/view/ui/firend_add/firend_add_screen.dart';
 import 'package:firebase_template_app/view/ui/home/widget/room_list.dart';
+import 'package:firebase_template_app/service/dialog_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,19 +14,21 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Chat'),
         actions: [
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(FriendAddScreen.id),
             icon: const Icon(Icons.add),
             label: const Text('フレンド登録'),
           ),
         ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: const [
-              RoomList(),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: RoomList(),
+            ),
+          ],
         ),
       ),
     );

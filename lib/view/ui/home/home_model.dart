@@ -4,7 +4,9 @@ import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/service/auth/firebase_auth_service.dart';
 import 'package:firebase_template_app/service/firestore/firestore_service.dart';
 import 'package:firebase_template_app/service/url_service.dart';
+import 'package:firebase_template_app/service/dialog_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final homeModelProvider = ChangeNotifierProvider((ref) => HomeModel(ref.read));
@@ -21,6 +23,10 @@ class HomeModel extends ChangeNotifier {
   void refreshButton() => notifyListeners();
 
   bool urlChecker(String? url) => UrlService().urlChecker(url);
+  friendDilog(BuildContext context) => DialogService().updateDialog(context,
+      dialog: const AlertDialog(
+        title: Text(''),
+      ));
 
   Query<FireUser> fetchFriendQuery(Room room) {
     final String _friendProfile = _searchFriendProfile(room);
