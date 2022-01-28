@@ -1,4 +1,3 @@
-import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/view/ui/home/home_model.dart';
 import 'package:firebase_template_app/view/ui/home/home_screen.dart';
@@ -40,7 +39,15 @@ class RoomList extends ConsumerWidget {
                     child: const RoomInfoTile(),
                   );
                 })
-            : const Text('Roomがありません');
+            : Column(
+                children: [
+                  const Text('Roomがありません'),
+                  TextButton(
+                    onPressed: () => _model.refreshButton(),
+                    child: const Text('再読み込み'),
+                  ),
+                ],
+              );
       },
     );
   }
