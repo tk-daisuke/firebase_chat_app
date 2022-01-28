@@ -1,7 +1,7 @@
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/view/ui/home/home_model.dart';
-import 'package:firebase_template_app/view/ui/home/home_screen.dart';
-import 'package:firebase_template_app/view/ui/home/widget/room_info_tile.dart';
+import 'package:firebase_template_app/view/utils/friend/room_info_tile.dart';
+import 'package:firebase_template_app/view/widget/error_message.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +36,10 @@ class RoomList extends ConsumerWidget {
                   }
                   return ProviderScope(
                     overrides: [currentRoom.overrideWithValue(room)],
-                    child: const RoomInfoTile(),
+                    child: RoomInfoTile(
+                      query: _model.fetchFriendQuery(room),
+                      roomName: room.name,
+                    ),
                   );
                 })
             : Column(
