@@ -1,6 +1,5 @@
 import 'package:firebase_template_app/view/ui/firend_add/firend_add_screen.dart';
-import 'package:firebase_template_app/view/ui/home/widget/room_list.dart';
-import 'package:firebase_template_app/service/dialog_service.dart';
+import 'package:firebase_template_app/view/utils/friend/room_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,28 +30,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class ErrorMessage extends StatelessWidget {
-  const ErrorMessage(
-      {Key? key, required this.errorText, required this.reloadMethod})
-      : super(key: key);
-  final String errorText;
-  final VoidCallback reloadMethod;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          errorText.toString(),
-        ),
-        TextButton(
-          onPressed: reloadMethod,
-          child: const Text('再読み込み'),
-        ),
-      ],
     );
   }
 }
