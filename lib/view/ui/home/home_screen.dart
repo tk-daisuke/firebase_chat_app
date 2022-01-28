@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_template_app/view/ui/firend_add/firend_add_screen.dart';
+import 'package:firebase_template_app/view/ui/home/widget/room_list.dart';
+import 'package:firebase_template_app/service/dialog_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,29 +9,50 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usersQuery = FirebaseFirestore.instance.collection('users');
-final chat = FirebaseFirestore.instance.collection('');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              FirestoreListView<Map<String, dynamic>>(
-                shrinkWrap: true,
-                query: usersQuery,
-                itemBuilder: (context, snapshot) {
-                  Map<String, dynamic> user = snapshot.data();
-
-                  return Text('User name is ${user['name']}');
-                },
-              )
-            ],
+        actions: [
+          ElevatedButton.icon(
+            onPressed: () =>
+                Navigator.of(context).pushNamed(FriendAddScreen.id),
+            icon: const Icon(Icons.add),
+            label: const Text('フレンド登録'),
           ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: RoomList(),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class ErrorMessage extends StatelessWidget {
+  const ErrorMessage(
+      {Key? key, required this.errorText, required this.reloadMethod})
+      : super(key: key);
+  final String errorText;
+  final VoidCallback reloadMethod;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          errorText.toString(),
+        ),
+        TextButton(
+          onPressed: reloadMethod,
+          child: const Text('再読み込み'),
+        ),
+      ],
     );
   }
 }

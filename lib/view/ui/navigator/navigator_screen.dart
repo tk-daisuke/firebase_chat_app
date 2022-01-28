@@ -1,3 +1,4 @@
+
 import 'package:firebase_template_app/view/ui/navigator/navigator_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,8 @@ class NavigatorScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final _index = ref.watch(bottomIndex.state);
     final _model = ref.read(navigatorProvider);
+
+    _model.userNameInspecter(ref, context);
     return Scaffold(
       // appBar: _appBar(),
       bottomNavigationBar: BottomNavigationBar(

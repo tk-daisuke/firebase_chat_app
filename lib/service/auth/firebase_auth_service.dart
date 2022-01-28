@@ -13,7 +13,7 @@ class FirebaseAuthService extends StateNotifier<User?> {
   FirebaseAuthService(this._read) : super(FirebaseAuth.instance.currentUser) {
     _auth.userChanges().listen((user) {
       if (kDebugMode) {
-        print(user);
+        // print(user);
       }
       state = user;
     });
