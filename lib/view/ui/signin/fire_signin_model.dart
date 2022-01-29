@@ -10,6 +10,6 @@ class FireSigninModel extends ChangeNotifier {
   FireSigninModel(this._read);
   final Reader _read;
   Future<void> signup(User user) async {
-    await FirestoreService(_read).signUp(user);
+    await FirestoreService(_read).userDirectryUpdater(user);
   }
 }

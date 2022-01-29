@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_template_app/model/fire_user/fire_user.dart';
-import 'package:firebase_template_app/view/ui/home/home_model.dart';
 import 'package:firebase_template_app/view/utils/friend/room_user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

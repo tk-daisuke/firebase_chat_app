@@ -29,7 +29,7 @@ class HomeModel extends ChangeNotifier {
 
   Query<FireUser> fetchFriendQuery(Room room) {
     final String _friendProfile = _searchFriendProfile(room);
-    final query = FirestoreService(_read).fetchProfile(_friendProfile);
+    final query = FirestoreService(_read).userProfileQuery(_friendProfile);
     return query;
   }
 
@@ -42,6 +42,6 @@ class HomeModel extends ChangeNotifier {
 
   Query<Room> roomQuery() {
     final uid = currentUserUID;
-    return FirestoreService(_read).fetchJoindRoom(uid!);
+    return FirestoreService(_read).joindRoomQuery(uid!);
   }
 }

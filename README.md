@@ -3,6 +3,9 @@
 
 https://pub.dev/packages/flutterfire_ui/example
 
+firestore設計
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTVyDawj0QGqG1WpDmHx0Cj4mahh_feS9_mchwz6hu1xG-7dZUzk64iNqxGW3jTQqSE3le2L88BnUep/pubhtml
+
 # Getting Started
 
 ### 必要なファイル Firebaseの初期設定で入手可 KEYが含まれるためアップロード不可

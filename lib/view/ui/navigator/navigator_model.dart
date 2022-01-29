@@ -22,7 +22,7 @@ class NavigatorModel extends ChangeNotifier {
         if (oldValue?.displayName == newValue?.displayName) {
           return;
         } else {
-          _firestore.userDirectryUpdate(newValue);
+          newValue != null ? _firestore.userDirectryUpdater(newValue) : null;
         }
       },
       onError: (error, stackTrace) => debugPrint('$error'),

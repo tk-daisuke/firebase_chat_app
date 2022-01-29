@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/model/room/room.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class FirebaseFirestoreBase {
   // ignore: unused_field
   final _firestore = FirebaseFirestore.instance;
   final serverTimeStamp = FieldValue.serverTimestamp();
-  Future<void> signUp(User user);
 }
 
 class FirestoreService extends FirebaseFirestoreBase {
@@ -18,7 +16,7 @@ class FirestoreService extends FirebaseFirestoreBase {
   // ignore: unused_field
   final Reader _read;
 
-  Query<FireUser> fetchProfile(String uid) => _firestore
+  Query<FireUser> userProfileQuery(String uid) => _firestore
       .collection('users')
       .where('uid', isEqualTo: uid)
       .limit(1)
@@ -29,7 +27,7 @@ class FirestoreService extends FirebaseFirestoreBase {
                 .toJson(),
       );
 
-  Query<Room> fetchJoindRoom(String uid) => _firestore
+  Query<Room> joindRoomQuery(String uid) => _firestore
       .collection('rooms')
       .where('entrant', arrayContains: uid)
       .withConverter<Room>(
@@ -42,25 +40,15 @@ class FirestoreService extends FirebaseFirestoreBase {
   //     _firestore.collection('rooms').where('entrant',
   //         whereIn: [myUID]);
 
-  Future<void> userDirectryUpdate(User? user) async {
-    if (user != null) {
-      final _path = _firestore.collection('users').doc(user.uid);
 
-      final _userDoc = await _path.get();
-      await _userDocProvider(_userDoc, user, _path);
-    } else {
-      if (kDebugMode) {
-        print('user null');
-      }
-    }
-  }
 
-  Future<void> _userDocProvider(DocumentSnapshot<Map<String, dynamic>> snapshot,
-      User user, DocumentReference<Map<String, dynamic>> _path) async {
+  Future<void> userDirectryUpdater(User user) async {
+    final _path = _firestore.collection('users').doc(user.uid);
+
     final providerData = user.providerData.isEmpty
         ? 'anonymous'
         : user.providerData[0].providerId;
-
+    final snapshot = await _path.get();
     //なかった時
     if (!snapshot.exists) {
       await _path.set({
@@ -74,8 +62,10 @@ class FirestoreService extends FirebaseFirestoreBase {
     } else {
       final doc = snapshot.data();
       final bool isUserNameChange = doc?['name'] != user.displayName;
-      final bool isPhotoURLChange = doc?['name'] != user.photoURL;
-      if (isUserNameChange || isPhotoURLChange) {
+      final bool isPhotoURLChange = doc?['iconURL'] != user.photoURL;
+      final bool isProviderChange = doc?['provider'] != user.providerData;
+
+      if (isUserNameChange || isPhotoURLChange || isProviderChange) {
         await _path.update({
           'name': user.displayName ?? '',
           // 'uid': user.uid,
@@ -87,23 +77,14 @@ class FirestoreService extends FirebaseFirestoreBase {
     }
   }
 
-  @override
-  Future<void> signUp(User? user) async {
-    final _path = _firestore.collection('users').doc(user?.uid);
-
-    final _hasData = await _path.get();
-    //なかったら作る
-    if (!_hasData.exists) {
-      await userDirectryUpdate(user);
-    }
-  }
-
   Future<bool> addFriend(
       {required String friendUID, required String myUID}) async {
     final _path = _firestore.collection('rooms').doc();
 
-    final _joindRoom = await fetchJoindRoom(myUID).get();
+    final _joindRoom = await joindRoomQuery(myUID).get();
+    // List<Room>に変換
     final _rooms = _joindRoom.docs.map((e) => e.data()).toList();
+    //  List<Room>にfriendがいるか確認
     final _friendCheck = _isFriendIncluded(_rooms, friendUID);
 
     // なかったら作る

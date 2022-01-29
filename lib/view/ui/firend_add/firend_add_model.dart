@@ -28,10 +28,10 @@ class FriendAddModel extends StateNotifier<FriendAddState> {
   Query<FireUser> fetchfirend(String friendUID) {
     final _uid = _auth.firebaseUID;
     if (friendUID != _uid) {
-      final _friend = _firestore.fetchProfile(friendUID);
+      final _friend = _firestore.userProfileQuery(friendUID);
       return _friend;
     } else {
-      return _firestore.fetchProfile('');
+      return _firestore.userProfileQuery('');
     }
   }
 
