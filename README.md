@@ -1,3 +1,14 @@
+### Firebase Auth
+- [x] SignUp
+- [x] SignIn
+- [x] Profile
+### チャット機能
+- [x] フレンド登録
+- [x] フレンド取得
+- [ ] メッセージ送信
+- [ ] メッセージ受信
+- [ ] Unitテスト
+
 # firebase_template_app
 下記パッケージ等をためしています。
 
