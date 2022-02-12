@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/service/auth/firebase_auth_service.dart';
-import 'package:firebase_template_app/service/firestore/firestore_service.dart';
+import 'package:firebase_template_app/service/firestore/room_repository.dart';
+import 'package:firebase_template_app/service/firestore/user_repository.dart';
 import 'package:firebase_template_app/service/url_service.dart';
 import 'package:firebase_template_app/service/dialog_service.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class HomeModel extends ChangeNotifier {
 
   Query<FireUser> fetchFriendQuery(Room room) {
     final String _friendProfile = _searchFriendProfile(room);
-    final query = FirestoreService(_read).userProfileQuery(_friendProfile);
+    final query = UserRepository().userProfileQuery(_friendProfile);
     return query;
   }
 
@@ -42,6 +43,6 @@ class HomeModel extends ChangeNotifier {
 
   Query<Room> roomQuery() {
     final uid = currentUserUID;
-    return FirestoreService(_read).joindRoomQuery(uid!);
+    return RoomRepository().joindRoomQuery(uid!);
   }
 }

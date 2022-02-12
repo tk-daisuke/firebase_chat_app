@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_template_app/service/auth/google_key_helper.dart';
 import 'package:firebase_template_app/view/ui/navigator/navigator_screen.dart';
@@ -34,7 +33,9 @@ class FireSignInScreen extends ConsumerWidget {
           );
         }),
         AuthStateChangeAction<SignedIn>((context, state) async {
-          await _model.signup(state.user!);
+          if (state.user != null) {
+            await _model.signup(state.user!);
+          }
           Navigator.pushReplacementNamed(context, NavigatorScreen.id);
         }),
       ],
