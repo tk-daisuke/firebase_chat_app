@@ -268,7 +268,7 @@ packages:
     source: hosted
     version: "1.2.0"
   fake_cloud_firestore:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: fake_cloud_firestore
       url: "https://pub.dartlang.org"
@@ -296,7 +296,7 @@ packages:
     source: hosted
     version: "3.3.6"
   firebase_auth_mocks:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: firebase_auth_mocks
       url: "https://pub.dartlang.org"

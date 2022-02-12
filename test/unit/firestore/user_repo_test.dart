@@ -9,7 +9,6 @@ import 'firestore_test_utils.dart';
 
 void main() {
   final repository = UserRepository(firestore: FakeFirebaseFirestore());
-  final utils = UserTestUtils();
 // 新規ユーザー
   final authUser = MockUser(
     displayName: 'tester',
@@ -40,15 +39,46 @@ void main() {
   //     expect(query,FakeConvertedQuery<FireUser>);
   //   });
   // });
-  group('User情報登録、User情報更新', () {
-    test('Add User', () async {
-      await utils.updateUser(repository, authUser, fireUser);
+
+  group('変換確認', () {
+    final utils = UserTestUtils();
+    test('取得は0件か', () async {
+      final snapshot = await repository.userProfileQuery(authUser.uid).get();
+
+      expect(snapshot.docs.length, 0);
     });
-    test('Update User', () async {
-      // 新規ユーザー追加
-      await utils.updateUser(repository, authUser, fireUser);
-      // update
-      await utils.updateUser(repository, authUserUpdated, fireUserUpdated);
+    test('取得は1件のみか', () async {
+      final snapshot = await utils.updateUser(repository, authUser);
+      expect(snapshot.docs.length, 1);
+    });
+    test('UserがFireUserに変換されているか', () async {
+      final snapshot = await utils.updateUser(repository, authUser);
+      final user = snapshot.docs[0].data();
+      expect(user, fireUser);
+    });
+    test('変換内容は正しいか', () async {
+      final snapshot = await utils.updateUser(repository, authUser);
+      final user = snapshot.docs[0].data();
+      expect(user.name, authUser.displayName);
+      expect(user.iconURL, authUser.photoURL);
+      expect(user.uid, authUser.uid);
+    });
+
+    test('上書き', () async {
+      final snapshot = await utils.updateUser(repository, authUser);
+      final user = snapshot.docs[0].data();
+      expect(user, fireUser);
+      expect(user.name, authUser.displayName);
+      expect(user.iconURL, authUser.photoURL);
+      expect(user.uid, authUser.uid);
+
+      final snapshotUpdate =
+          await utils.updateUser(repository, authUserUpdated);
+      final userUpdated = snapshotUpdate.docs[0].data();
+      expect(userUpdated, fireUserUpdated);
+      expect(userUpdated.name, authUserUpdated.displayName);
+      expect(userUpdated.iconURL, authUserUpdated.photoURL);
+      expect(userUpdated.uid, authUserUpdated.uid);
     });
   });
 }
