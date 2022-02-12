@@ -16,7 +16,7 @@ dependencies:
   #json
   json_annotation: ^4.3.0 #https://pub.dev/packages/json_annotation
   #url
-  url_launcher: ^6.0.15 #https://pub.dev/packages/url_launcher
+  url_launcher: ^6.0.15 #https://pub.dev/packages/url_launc.her
   # 状態管理
   flutter_riverpod: ^1.0.3 #https://pub.dev/packages/riverpod
   #firebase
@@ -39,6 +39,8 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0 #https://pub.dev/packages/flutter_barcode_scanner
   #権限
   app_tracking_transparency: ^2.0.2 #https://pub.dev/packages/app_tracking_transparency/install
+  firebase_auth_mocks: ^0.8.2
+  fake_cloud_firestore: ^1.2.0
 
 
 
