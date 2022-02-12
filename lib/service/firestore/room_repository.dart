@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/service/firestore/base/firestore_base.dart';
 
-
-
 class RoomRepository extends FirebaseFirestoreBase {
-  RoomRepository();
+  final FirebaseFirestore _firestore;
+  RoomRepository({FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
-
-
-  Query<Room> joindRoomQuery(String uid) => firestore
+  Query<Room> joindRoomQuery(String uid) => _firestore
       .collection('rooms')
       .where('entrant', arrayContains: uid)
       .withConverter<Room>(
@@ -22,10 +20,9 @@ class RoomRepository extends FirebaseFirestoreBase {
   //     _firestore.collection('rooms').where('entrant',
   //         whereIn: [myUID]);
 
-
   Future<bool> addFriend(
       {required String friendUID, required String myUID}) async {
-    final _path = firestore.collection('rooms').doc();
+    final _path = _firestore.collection('rooms').doc();
 
     final _joindRoom = await joindRoomQuery(myUID).get();
     // List<Room>に変換
