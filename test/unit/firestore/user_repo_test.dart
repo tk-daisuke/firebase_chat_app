@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/service/firestore/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
-  final instance = FakeFirebaseFirestore();
-  final repository = UserRepository(firestore: instance);
+import 'firestore_test_utils.dart';
 
+void main() {
+  final repository = UserRepository(firestore: FakeFirebaseFirestore());
+  final utils = UserTestUtils();
+// 新規ユーザー
   final authUser = MockUser(
     displayName: 'tester',
     photoURL: 'google.com',
@@ -18,7 +21,7 @@ void main() {
       uid: authUser.uid,
       iconURL: authUser.photoURL,
       name: authUser.displayName!);
-
+// ユーザー情報変更
   final authUserUpdated = MockUser(
     displayName: 'updateName',
     photoURL: 'updateURL',
@@ -29,33 +32,23 @@ void main() {
       uid: authUserUpdated.uid,
       iconURL: authUserUpdated.photoURL,
       name: authUserUpdated.displayName!);
-
-  group('user_repository', () {
-    test('add User', () async {
-      await _addNewUser(repository, authUser, fireUser);
+  // group('user query', () {
+  //   test('型確認', () async {
+  //     final query = repository
+  //         .userProfileQuery(authUser.uid);
+  //     // print(query.parameters);
+  //     expect(query,FakeConvertedQuery<FireUser>);
+  //   });
+  // });
+  group('User情報登録、User情報更新', () {
+    test('Add User', () async {
+      await utils.updateUser(repository, authUser, fireUser);
     });
     test('Update User', () async {
       // 新規ユーザー追加
-      await _addNewUser(repository, authUser, fireUser);
+      await utils.updateUser(repository, authUser, fireUser);
       // update
-      await repository.userDirectryUpdater(authUserUpdated);
-      // 取得
-      final snapshotUpdated =
-          await repository.userProfileQuery(authUserUpdated.uid).get();
-      // snapshot の長さを確認
-      expect(snapshotUpdated.docs.length, 1);
-      // snapshotの中身を確認
-      final updatedUser = snapshotUpdated.docs[0].data();
-      expect(updatedUser, fireUserUpdated);
+      await utils.updateUser(repository, authUserUpdated, fireUserUpdated);
     });
   });
-}
-
-Future<void> _addNewUser(
-    UserRepository repository, MockUser authUser, FireUser fireUser) async {
-  await repository.userDirectryUpdater(authUser);
-  final snapshot = await repository.userProfileQuery(authUser.uid).get();
-  expect(snapshot.docs.length, 1);
-  final user = snapshot.docs[0].data();
-  expect(user, fireUser);
 }
