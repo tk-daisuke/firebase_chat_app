@@ -4,7 +4,11 @@ import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/service/firestore/base/firestore_base.dart';
 
 class UserRepository extends FirebaseFirestoreBase {
-  Query<FireUser> userProfileQuery(String uid) => firestore
+  final FirebaseFirestore _firestore;
+  UserRepository({FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance;
+
+  Query<FireUser> userProfileQuery(String uid) => _firestore
       .collection('users')
       .where('uid', isEqualTo: uid)
       .limit(1)
@@ -15,21 +19,15 @@ class UserRepository extends FirebaseFirestoreBase {
                 .toJson(),
       );
   Future<void> userDirectryUpdater(User user) async {
-    final _path = firestore.collection('users').doc(user.uid);
+    final _path = _firestore.collection('users').doc(user.uid);
 
-    final providerData = user.providerData.isEmpty
-        ? 'anonymous'
-        : user.providerData[0].providerId;
     final snapshot = await _path.get();
+    final fireUser =
+        FireUser(uid: user.uid, iconURL: user.photoURL, name: user.displayName!)
+            .toJson();
     //なかった時
     if (!snapshot.exists) {
-      await _path.set({
-        'name': user.displayName ?? '',
-        'uid': user.uid,
-        'iconURL': user.photoURL ?? '',
-        'provider': providerData,
-        'createdAt': serverTimeStamp,
-      });
+      await _path.set(fireUser..['createdAt'] = serverTimeStamp);
       //あった時
     } else {
       final doc = snapshot.data();
@@ -38,13 +36,12 @@ class UserRepository extends FirebaseFirestoreBase {
       final bool isProviderChange = doc?['provider'] != user.providerData;
 
       if (isUserNameChange || isPhotoURLChange || isProviderChange) {
-        await _path.update({
-          'name': user.displayName ?? '',
-          // 'uid': user.uid,
-          'iconURL': user.photoURL ?? '',
-          'provider': providerData,
-          'updatedAt': serverTimeStamp,
-        });
+        final fireUser = FireUser(
+                uid: user.uid, iconURL: user.photoURL, name: user.displayName!)
+            .toJson();
+        await _path.update(
+          fireUser..['updatedAt'] = serverTimeStamp,
+        );
       }
     }
   }
