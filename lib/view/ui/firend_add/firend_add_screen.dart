@@ -72,7 +72,7 @@ class _UidTextField extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final _model = ref.watch(friendAddModelProvider.notifier);
-        final _state = ref.watch(friendAddModelProvider);
+        // final _state = ref.watch(friendAddModelProvider);
 
         return Column(
           children: [
@@ -92,9 +92,9 @@ class _UidTextField extends StatelessWidget {
                 labelText: "firend uid",
                 hintText: 'Enter firend uid',
               ),
-              onChanged: (String value) async {
-                final result = _model.changeTextField(value);
-                print(result);
+              onChanged: (String value)  {
+               _model.changeTextField(value);
+          
               },
             ),
             // Text(_state.friendUID)
