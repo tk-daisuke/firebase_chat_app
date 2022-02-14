@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 class UserTestUtils {
   Future<QuerySnapshot<FireUser>> updateUser(
-      UserRepository userRepo, MockUser authUser, ) async {
+      UserRepository userRepo, MockUser authUser) async {
     // authUserの情報をFirestore
     await userRepo.userDirectryUpdater(authUser);
     final snapshot = await userRepo.userProfileQuery(authUser.uid).get();
@@ -15,7 +15,7 @@ class UserTestUtils {
     // final user = snapshot.docs[0].data();
     // // UserがFireUserに変換されているか
     // expect(user, fireUser);
-    // // 
+    // //
     // expect(user.name, authUser.displayName);
     // expect(user.iconURL, authUser.photoURL);
     // expect(user.uid, authUser.uid);

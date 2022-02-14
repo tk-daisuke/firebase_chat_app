@@ -6,7 +6,7 @@ part 'friend_add_state.freezed.dart';
 // flutter packages pub run build_runner build --delete-conflicting-outputs
 
 @freezed
-abstract class FriendAddState with _$FriendAddState {
+class FriendAddState with _$FriendAddState {
   const factory FriendAddState({
     @Default('') String friendUID,
   }) = _FriendAddState;
