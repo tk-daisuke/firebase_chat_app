@@ -50,8 +50,6 @@ class RoomRepository extends FirebaseFirestoreBase {
     final _uidList = _joindRoom.where((uid) {
       return uid.entrant.where((element) => element == friendUID).isNotEmpty;
     });
-    print(_uidList);
-
     return _uidList.isEmpty;
   }
 }
