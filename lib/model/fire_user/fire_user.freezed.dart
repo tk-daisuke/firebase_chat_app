@@ -23,11 +23,17 @@ class _$FireUserTearOff {
   const _$FireUserTearOff();
 
   _FireUser call(
-      {required String uid, required String? iconURL, String name = '名無し'}) {
+      {required String uid,
+      required String? iconURL,
+      String name = '名無し',
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) {
     return _FireUser(
       uid: uid,
       iconURL: iconURL,
       name: name,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -44,6 +50,10 @@ mixin _$FireUser {
   String get uid => throw _privateConstructorUsedError;
   String? get iconURL => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @ServerTimestampConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @ServerTimestampConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +65,12 @@ mixin _$FireUser {
 abstract class $FireUserCopyWith<$Res> {
   factory $FireUserCopyWith(FireUser value, $Res Function(FireUser) then) =
       _$FireUserCopyWithImpl<$Res>;
-  $Res call({String uid, String? iconURL, String name});
+  $Res call(
+      {String uid,
+      String? iconURL,
+      String name,
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -71,6 +86,8 @@ class _$FireUserCopyWithImpl<$Res> implements $FireUserCopyWith<$Res> {
     Object? uid = freezed,
     Object? iconURL = freezed,
     Object? name = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -85,6 +102,14 @@ class _$FireUserCopyWithImpl<$Res> implements $FireUserCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -94,7 +119,12 @@ abstract class _$FireUserCopyWith<$Res> implements $FireUserCopyWith<$Res> {
   factory _$FireUserCopyWith(_FireUser value, $Res Function(_FireUser) then) =
       __$FireUserCopyWithImpl<$Res>;
   @override
-  $Res call({String uid, String? iconURL, String name});
+  $Res call(
+      {String uid,
+      String? iconURL,
+      String name,
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -111,6 +141,8 @@ class __$FireUserCopyWithImpl<$Res> extends _$FireUserCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? iconURL = freezed,
     Object? name = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_FireUser(
       uid: uid == freezed
@@ -125,6 +157,14 @@ class __$FireUserCopyWithImpl<$Res> extends _$FireUserCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -133,7 +173,11 @@ class __$FireUserCopyWithImpl<$Res> extends _$FireUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_FireUser extends _FireUser with DiagnosticableTreeMixin {
   const _$_FireUser(
-      {required this.uid, required this.iconURL, this.name = '名無し'})
+      {required this.uid,
+      required this.iconURL,
+      this.name = '名無し',
+      @ServerTimestampConverter() this.createdAt,
+      @ServerTimestampConverter() this.updatedAt})
       : super._();
 
   factory _$_FireUser.fromJson(Map<String, dynamic> json) =>
@@ -146,10 +190,16 @@ class _$_FireUser extends _FireUser with DiagnosticableTreeMixin {
   @JsonKey()
   @override
   final String name;
+  @override
+  @ServerTimestampConverter()
+  final DateTime? createdAt;
+  @override
+  @ServerTimestampConverter()
+  final DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FireUser(uid: $uid, iconURL: $iconURL, name: $name)';
+    return 'FireUser(uid: $uid, iconURL: $iconURL, name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -159,7 +209,9 @@ class _$_FireUser extends _FireUser with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'FireUser'))
       ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('iconURL', iconURL))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -169,7 +221,9 @@ class _$_FireUser extends _FireUser with DiagnosticableTreeMixin {
             other is _FireUser &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.iconURL, iconURL) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
@@ -177,7 +231,9 @@ class _$_FireUser extends _FireUser with DiagnosticableTreeMixin {
       runtimeType,
       const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(iconURL),
-      const DeepCollectionEquality().hash(name));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +250,9 @@ abstract class _FireUser extends FireUser {
   const factory _FireUser(
       {required String uid,
       required String? iconURL,
-      String name}) = _$_FireUser;
+      String name,
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) = _$_FireUser;
   const _FireUser._() : super._();
 
   factory _FireUser.fromJson(Map<String, dynamic> json) = _$_FireUser.fromJson;
@@ -205,6 +263,12 @@ abstract class _FireUser extends FireUser {
   String? get iconURL;
   @override
   String get name;
+  @override
+  @ServerTimestampConverter()
+  DateTime? get createdAt;
+  @override
+  @ServerTimestampConverter()
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$FireUserCopyWith<_FireUser> get copyWith =>

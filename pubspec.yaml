@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0 #https://pub.dev/packages/google_fonts
   #json
-  json_annotation: ^4.3.0 #https://pub.dev/packages/json_annotation
+  json_annotation: ^4.4.0 #https://pub.dev/packages/json_annotation
   #url
   url_launcher: ^6.0.15 #https://pub.dev/packages/url_launc.her
   # 状態管理
@@ -30,8 +30,10 @@ dependencies:
   version: ^2.0.0 #https://pub.dev/packages/version
   #widget
   flutter_progress_hud: ^2.0.0 #https://pub.dev/packages/flutter_progress_hud
-  auto_size_text: ^3.0.0
   flutterfire_ui: ^0.3.1 #https://pub.dev/packages/flutterfire_ui
+  # レスポンシブ
+  auto_size_text: ^3.0.0
+  sizer: ^2.0.15 # https://pub.dev/packages/sizer
   # 翻訳
   intl: ^0.17.0 #https://pub.dev/packages/intl/install
   #QR code
@@ -42,7 +44,6 @@ dependencies:
 
 
 
-
 dev_dependencies:
   integration_test:
     sdk: flutter
@@ -50,13 +51,15 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-
+  # 静的解析
   flutter_lints: ^1.0.0
-  build_runner: any
-  freezed: ^1.1.0 #https://pub.dev/packages/freezed
-  json_serializable: any
-  mockito: ^5.0.0 #https://pub.dev/packages/mockito
   dart_code_metrics: ^4.8.1 #https://pub.dev/packages/dart_code_metrics
+  # freezed
+  build_runner: any
+  freezed: ^1.1.1 #https://pub.dev/packages/freezed
+  json_serializable: any
+  # test
+  mockito: ^5.0.0 #https://pub.dev/packages/mockito
   firebase_auth_mocks: ^0.8.2
   fake_cloud_firestore: ^1.2.0
 

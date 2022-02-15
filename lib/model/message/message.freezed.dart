@@ -25,11 +25,13 @@ class _$MessageTearOff {
   _Message call(
       {required String text,
       required String postUserID,
-      @ServerTimestampConverter() required DateTime? createdAT}) {
+      @ServerTimestampConverter() required DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) {
     return _Message(
       text: text,
       postUserID: postUserID,
-      createdAT: createdAT,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -46,7 +48,9 @@ mixin _$Message {
   String get text => throw _privateConstructorUsedError;
   String get postUserID => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
-  DateTime? get createdAT => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @ServerTimestampConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +64,8 @@ abstract class $MessageCopyWith<$Res> {
   $Res call(
       {String text,
       String postUserID,
-      @ServerTimestampConverter() DateTime? createdAT});
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -75,7 +80,8 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
   $Res call({
     Object? text = freezed,
     Object? postUserID = freezed,
-    Object? createdAT = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       text: text == freezed
@@ -86,9 +92,13 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
           ? _value.postUserID
           : postUserID // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAT: createdAT == freezed
-          ? _value.createdAT
-          : createdAT // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -102,7 +112,8 @@ abstract class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   $Res call(
       {String text,
       String postUserID,
-      @ServerTimestampConverter() DateTime? createdAT});
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -118,7 +129,8 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
   $Res call({
     Object? text = freezed,
     Object? postUserID = freezed,
-    Object? createdAT = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_Message(
       text: text == freezed
@@ -129,9 +141,13 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
           ? _value.postUserID
           : postUserID // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAT: createdAT == freezed
-          ? _value.createdAT
-          : createdAT // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -143,7 +159,8 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
   const _$_Message(
       {required this.text,
       required this.postUserID,
-      @ServerTimestampConverter() required this.createdAT})
+      @ServerTimestampConverter() required this.createdAt,
+      @ServerTimestampConverter() this.updatedAt})
       : super._();
 
   factory _$_Message.fromJson(Map<String, dynamic> json) =>
@@ -155,11 +172,14 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
   final String postUserID;
   @override
   @ServerTimestampConverter()
-  final DateTime? createdAT;
+  final DateTime? createdAt;
+  @override
+  @ServerTimestampConverter()
+  final DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Message(text: $text, postUserID: $postUserID, createdAT: $createdAT)';
+    return 'Message(text: $text, postUserID: $postUserID, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -169,7 +189,8 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Message'))
       ..add(DiagnosticsProperty('text', text))
       ..add(DiagnosticsProperty('postUserID', postUserID))
-      ..add(DiagnosticsProperty('createdAT', createdAT));
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -180,7 +201,8 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality()
                 .equals(other.postUserID, postUserID) &&
-            const DeepCollectionEquality().equals(other.createdAT, createdAT));
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
@@ -188,7 +210,8 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
       runtimeType,
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(postUserID),
-      const DeepCollectionEquality().hash(createdAT));
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -205,7 +228,8 @@ abstract class _Message extends Message {
   const factory _Message(
       {required String text,
       required String postUserID,
-      @ServerTimestampConverter() required DateTime? createdAT}) = _$_Message;
+      @ServerTimestampConverter() required DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) = _$_Message;
   const _Message._() : super._();
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
@@ -216,7 +240,10 @@ abstract class _Message extends Message {
   String get postUserID;
   @override
   @ServerTimestampConverter()
-  DateTime? get createdAT;
+  DateTime? get createdAt;
+  @override
+  @ServerTimestampConverter()
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$MessageCopyWith<_Message> get copyWith =>

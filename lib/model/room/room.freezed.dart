@@ -25,13 +25,13 @@ class _$RoomTearOff {
   _Room call(
       {required String name,
       required List<String> entrant,
-      @ServerTimestampConverter() DateTime? createdAT,
-      @ServerTimestampConverter() DateTime? updatedAT}) {
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) {
     return _Room(
       name: name,
       entrant: entrant,
-      createdAT: createdAT,
-      updatedAT: updatedAT,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -48,9 +48,9 @@ mixin _$Room {
   String get name => throw _privateConstructorUsedError;
   List<String> get entrant => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
-  DateTime? get createdAT => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
-  DateTime? get updatedAT => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,8 +64,8 @@ abstract class $RoomCopyWith<$Res> {
   $Res call(
       {String name,
       List<String> entrant,
-      @ServerTimestampConverter() DateTime? createdAT,
-      @ServerTimestampConverter() DateTime? updatedAT});
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -80,8 +80,8 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? entrant = freezed,
-    Object? createdAT = freezed,
-    Object? updatedAT = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -92,13 +92,13 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
           ? _value.entrant
           : entrant // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAT: createdAT == freezed
-          ? _value.createdAT
-          : createdAT // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      updatedAT: updatedAT == freezed
-          ? _value.updatedAT
-          : updatedAT // ignore: cast_nullable_to_non_nullable
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -112,8 +112,8 @@ abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
   $Res call(
       {String name,
       List<String> entrant,
-      @ServerTimestampConverter() DateTime? createdAT,
-      @ServerTimestampConverter() DateTime? updatedAT});
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -129,8 +129,8 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? entrant = freezed,
-    Object? createdAT = freezed,
-    Object? updatedAT = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_Room(
       name: name == freezed
@@ -141,13 +141,13 @@ class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
           ? _value.entrant
           : entrant // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      createdAT: createdAT == freezed
-          ? _value.createdAT
-          : createdAT // ignore: cast_nullable_to_non_nullable
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      updatedAT: updatedAT == freezed
-          ? _value.updatedAT
-          : updatedAT // ignore: cast_nullable_to_non_nullable
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -159,8 +159,8 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
   const _$_Room(
       {required this.name,
       required this.entrant,
-      @ServerTimestampConverter() this.createdAT,
-      @ServerTimestampConverter() this.updatedAT})
+      @ServerTimestampConverter() this.createdAt,
+      @ServerTimestampConverter() this.updatedAt})
       : super._();
 
   factory _$_Room.fromJson(Map<String, dynamic> json) => _$$_RoomFromJson(json);
@@ -171,14 +171,14 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
   final List<String> entrant;
   @override
   @ServerTimestampConverter()
-  final DateTime? createdAT;
+  final DateTime? createdAt;
   @override
   @ServerTimestampConverter()
-  final DateTime? updatedAT;
+  final DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Room(name: $name, entrant: $entrant, createdAT: $createdAT, updatedAT: $updatedAT)';
+    return 'Room(name: $name, entrant: $entrant, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -188,8 +188,8 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Room'))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('entrant', entrant))
-      ..add(DiagnosticsProperty('createdAT', createdAT))
-      ..add(DiagnosticsProperty('updatedAT', updatedAT));
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -199,8 +199,8 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
             other is _Room &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.entrant, entrant) &&
-            const DeepCollectionEquality().equals(other.createdAT, createdAT) &&
-            const DeepCollectionEquality().equals(other.updatedAT, updatedAT));
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
@@ -208,8 +208,8 @@ class _$_Room extends _Room with DiagnosticableTreeMixin {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(entrant),
-      const DeepCollectionEquality().hash(createdAT),
-      const DeepCollectionEquality().hash(updatedAT));
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -226,8 +226,8 @@ abstract class _Room extends Room {
   const factory _Room(
       {required String name,
       required List<String> entrant,
-      @ServerTimestampConverter() DateTime? createdAT,
-      @ServerTimestampConverter() DateTime? updatedAT}) = _$_Room;
+      @ServerTimestampConverter() DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? updatedAt}) = _$_Room;
   const _Room._() : super._();
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
@@ -238,10 +238,10 @@ abstract class _Room extends Room {
   List<String> get entrant;
   @override
   @ServerTimestampConverter()
-  DateTime? get createdAT;
+  DateTime? get createdAt;
   @override
   @ServerTimestampConverter()
-  DateTime? get updatedAT;
+  DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$RoomCopyWith<_Room> get copyWith => throw _privateConstructorUsedError;

@@ -12,7 +12,7 @@ class RoomRepository extends FirebaseFirestoreBase {
       .where('entrant', arrayContains: uid)
       .withConverter<Room>(
         fromFirestore: (snapshot, _) => Room.fromJson(snapshot.data()!),
-        toFirestore: (room, _) => room.copyWith().toJson(),
+        toFirestore: (room, _) => room.toJson(),
       );
 
   // Query<Map<String, dynamic>> _fetchFirendRoom(
@@ -22,8 +22,7 @@ class RoomRepository extends FirebaseFirestoreBase {
 
   Future<bool> addFriend(
       {required String friendUID, required String myUID}) async {
-    final _path = _firestore.collection('rooms').doc();
-
+    // 自分が入ってるRoomを取得
     final _joindRoom = await joindRoomQuery(myUID).get();
     // List<Room>に変換
     final _rooms = _joindRoom.docs.map((e) => e.data()).toList();
@@ -37,8 +36,8 @@ class RoomRepository extends FirebaseFirestoreBase {
         entrant: [myUID, friendUID],
       ).toJson()
         ..['createdAT'] = serverTimeStamp;
-
-      await _path.set(room);
+      final _path = _firestore.collection('rooms');
+      await _path.add(room);
       //フレンド登録完了
       return true;
     } else {
@@ -48,11 +47,9 @@ class RoomRepository extends FirebaseFirestoreBase {
   }
 
   bool _isFriendIncluded(List<Room> _joindRoom, String friendUID) {
-    final _uidList = _joindRoom.map((room) {
-      final where = room.entrant.where((uid) => uid != friendUID);
-      return where.toList();
-    }).toList();
-
+    final _uidList = _joindRoom.where((uid) {
+      return uid.entrant.where((element) => element == friendUID).isNotEmpty;
+    });
     return _uidList.isEmpty;
   }
 }

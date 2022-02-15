@@ -8,16 +8,18 @@ class ErrorMessage extends StatelessWidget {
   final VoidCallback reloadMethod;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          errorText.toString(),
-        ),
-        TextButton(
-          onPressed: reloadMethod,
-          child: const Text('再読み込み'),
-        ),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            errorText.toString(),
+          ),
+          TextButton(
+            onPressed: reloadMethod,
+            child: const Text('再読み込み'),
+          ),
+        ],
+      ),
     );
   }
 }

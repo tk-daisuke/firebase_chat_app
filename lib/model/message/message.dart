@@ -14,7 +14,8 @@ class Message with _$Message {
   const factory Message({
     required String text,
     required String postUserID,
-    @ServerTimestampConverter() required DateTime? createdAT,
+    @ServerTimestampConverter() required DateTime? createdAt,
+    @ServerTimestampConverter() DateTime? updatedAt,
   }) = _Message;
   // ignore: unused_element
   const Message._();

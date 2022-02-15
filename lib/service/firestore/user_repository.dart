@@ -14,35 +14,46 @@ class UserRepository extends FirebaseFirestoreBase {
       .limit(1)
       .withConverter<FireUser>(
         fromFirestore: (snapshot, _) => FireUser.fromJson(snapshot.data()!),
-        toFirestore: (user, _) =>
-            FireUser(uid: user.uid, iconURL: user.iconURL, name: user.name)
-                .toJson(),
+        toFirestore: (user, _) => user.toJson(),
       );
+
   Future<void> userDirectryUpdater(User user) async {
     final _path = _firestore.collection('users').doc(user.uid);
-
     final snapshot = await _path.get();
-    final fireUser =
-        FireUser(uid: user.uid, iconURL: user.photoURL, name: user.displayName!)
-            .toJson();
+
     //なかった時
     if (!snapshot.exists) {
-      await _path.set(fireUser..['createdAt'] = serverTimeStamp);
+      await _addUser(user, _path);
       //あった時
     } else {
-      final doc = snapshot.data();
-      final bool isUserNameChange = doc?['name'] != user.displayName;
-      final bool isPhotoURLChange = doc?['iconURL'] != user.photoURL;
-      final bool isProviderChange = doc?['provider'] != user.providerData;
+      await _updateUser(snapshot, user, _path);
+    }
+  }
 
-      if (isUserNameChange || isPhotoURLChange || isProviderChange) {
-        final fireUser = FireUser(
-                uid: user.uid, iconURL: user.photoURL, name: user.displayName!)
-            .toJson();
-        await _path.update(
-          fireUser..['updatedAt'] = serverTimeStamp,
-        );
-      }
+  Future<void> _addUser(User user, DocumentReference _path) async {
+    final fireUser =
+        FireUser(uid: user.uid, iconURL: user.photoURL, name: user.displayName!)
+            .toJson()
+          ..['createdAt'] = serverTimeStamp;
+    await _path.set(fireUser);
+  }
+
+  Future<void> _updateUser(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      User user, DocumentReference _path) async {
+    final docUser = FireUser.fromJson(snapshot.data()!);
+
+    final bool isUserNameChange = docUser.name != user.displayName;
+    final bool isPhotoURLChange = docUser.iconURL != user.photoURL;
+    // final bool isProviderChange = doc?['provider'] != user.providerData;
+
+    if (isUserNameChange || isPhotoURLChange) {
+      final updateUser = docUser
+          .copyWith(iconURL: user.photoURL, name: user.displayName!)
+          .toJson()
+        ..['updatedAt'] = serverTimeStamp;
+      await _path.update(
+        updateUser,
+      );
     }
   }
 }
