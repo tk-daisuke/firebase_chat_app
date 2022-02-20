@@ -1,5 +1,4 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:firebase_template_app/service/firestore/room_repository.dart';
 import 'package:firebase_template_app/service/firestore/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,16 +20,7 @@ void main() {
     // 他人のルームを作成
     await roomTestUtils.dummyRoomGenerate();
   });
-  test('参加済みroom 0件', () async {
-    final me = userTestUtils.createUser('me0');
-    final friend = userTestUtils.createUser('frined0');
-
-    await userTestUtils.updateUser(me);
-    await userTestUtils.updateUser(friend);
-    final snapshot = await roomRepository.joindRoomQuery(me.uid).get();
-    expect(snapshot.docs.length, 0);
-  });
-  group('参加済みroom 1件', () {
+  group('フレンド登録 1件', () {
     final me = userTestUtils.createUser('me1');
     final friend = userTestUtils.createUser('frined1');
     test('フレンド登録', () async {
@@ -52,7 +42,7 @@ void main() {
       expect(snapshot.docs.length, 1);
     });
   });
-  group('参加済みroom 10件', () {
+  group('フレンド登録 10件', () {
     final me = userTestUtils.createUser('me10');
     // final friend = userTestUtils.createUser('frined10');
     test('10件', () async {

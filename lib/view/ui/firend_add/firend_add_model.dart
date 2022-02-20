@@ -37,31 +37,27 @@ class FriendAddModel extends StateNotifier<FriendAddState> {
     }
   }
 
-  Future<bool> addFriend(String friendUID) async {
+  Future<String> addFriend(String friendUID) async {
     final _uid = _auth.firebaseUID;
     final _uidCheck = friendUID != _uid && _uid != null;
     if (_uidCheck) {
       try {
         final _addFriend =
             await _roomRepo.addFriend(friendUID: friendUID, myUID: _uid);
-        return _addFriend;
+        return _addFriend ? 'フレンド登録しました' : 'フレンド登録済みです';
       } on Exception catch (e) {
         if (kDebugMode) {
           print(e);
         }
-        return false;
+        return 'Error:$e ';
       }
     } else {
-      return false;
+      return '接続エラー';
     }
   }
 
-  void addFriendResult(bool success, BuildContext context) {
-    final SnackBar snackBar;
-    snackBar = success
-        ? const SnackBar(content: Text('フレンド登録しました'))
-        : const SnackBar(content: Text('フレンド登録済みです'));
-
+  void addFriendResult(String messages, BuildContext context) {
+    final snackBar = SnackBar(content: Text(messages));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
@@ -98,4 +94,7 @@ class FriendAddModel extends StateNotifier<FriendAddState> {
     // Scaffold.of(context).
     // showBottomSheet((context) => child, elevation: 0.5);
   }
+
+
+
 }

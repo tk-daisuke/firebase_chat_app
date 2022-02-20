@@ -1,6 +1,5 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
-import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/service/firestore/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 

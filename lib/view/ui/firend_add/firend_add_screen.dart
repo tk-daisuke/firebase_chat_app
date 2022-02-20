@@ -92,9 +92,8 @@ class _UidTextField extends StatelessWidget {
                 labelText: "firend uid",
                 hintText: 'Enter firend uid',
               ),
-              onChanged: (String value)  {
-               _model.changeTextField(value);
-          
+              onChanged: (String value) {
+                _model.changeTextField(value);
               },
             ),
             // Text(_state.friendUID)
@@ -139,17 +138,33 @@ class _SearchResult extends StatelessWidget {
                         query: _model.fetchfirend(_friend.uid),
                         roomName: _friend.name);
                   })
-              : Column(
-                  children: [
-                    const Text('friendが見つかりません'),
-                    TextButton(
-                      onPressed: () => ref.refresh(friendAddModelProvider),
-                      child: const Text('再読み込み'),
-                    ),
-                  ],
-                );
+              : const _FriendEmpty();
         },
       );
     });
+  }
+}
+
+class _FriendEmpty extends ConsumerWidget {
+  const _FriendEmpty({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, ref) {
+    final _search = ref.read(friendAddModelProvider).friendUID;
+    final _isEdit = _search.isNotEmpty;
+    return _isEdit
+        ? Column(
+            children: [
+              // TODO(*):Test
+              const Text('friendが見つかりません'),
+              TextButton(
+                onPressed: () => ref.refresh(friendAddModelProvider),
+                child: const Text('再読み込み'),
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 }

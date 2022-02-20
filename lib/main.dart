@@ -12,6 +12,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/i10n.dart';
 
+
+
 // arch -x86_64 pod install
 // arch -x86_64 pod repo update
 // arch -x86_64 pod install --repo-update
