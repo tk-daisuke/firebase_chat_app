@@ -10,11 +10,6 @@ class RoomTestUtils {
 
   Future<void> dummyRoomGenerate() async {
     for (var i = 0; i < 10; i++) {
-      // final dummyRoom = Room(name: Random().nextDouble().toString(), entrant: [
-      //   Random().nextDouble().toString(),
-      //   Random().nextDouble().toString()
-      // ]);
-
       await repository.addFriend(
           friendUID: Random().nextDouble().toString(),
           myUID: Random().nextDouble().toString());
