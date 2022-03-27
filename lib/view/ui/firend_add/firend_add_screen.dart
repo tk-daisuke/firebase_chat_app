@@ -1,8 +1,9 @@
 import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/view/ui/firend_add/firend_add_model.dart';
 import 'package:firebase_template_app/view/ui/firend_add/widget/qr_bottom_sheet.dart';
+import 'package:firebase_template_app/view/utils/error_message.dart';
 import 'package:firebase_template_app/view/utils/friend/room_info_tile.dart';
-import 'package:firebase_template_app/view/widget/error_message.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';
