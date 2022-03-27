@@ -1,8 +1,8 @@
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/view/ui/home/home_model.dart';
+import 'package:firebase_template_app/view/ui/room/room_screen.dart';
 import 'package:firebase_template_app/view/utils/friend/room_info_tile.dart';
 import 'package:firebase_template_app/view/widget/error_message.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';
@@ -30,16 +30,18 @@ class RoomList extends ConsumerWidget {
                 shrinkWrap: true,
                 itemCount: snapshot.docs.length,
                 itemBuilder: (context, index) {
-                  final room = snapshot.docs[index].data();
-                  if (kDebugMode) {
-                    print(room);
-                  }
-                  return ProviderScope(
-                    overrides: [currentRoom.overrideWithValue(room)],
-                    child: RoomInfoTile(
-                      query: _model.fetchFriendQuery(room),
-                      roomName: room.name,
-                    ),
+                  final item = snapshot.docs[index];
+
+                  return RoomInfoTile(
+                    query: _model.fetchFriendQuery(item.data()),
+                    roomName: item.data().name,
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RoomScreen(item)),
+                      );
+                    },
                   );
                 })
             : Column(

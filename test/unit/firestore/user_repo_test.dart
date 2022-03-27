@@ -21,12 +21,12 @@ void main() {
 
   group('取得', () {
     final _user = utils.createUser('getUser');
-    test('取得は0件か', () async {
+    test('取得は0件', () async {
       // 未登録で取得
       final snapshot = await repository.userProfileQuery(_user.uid).get();
       expect(snapshot.docs.length, 0);
     });
-    test('取得は1件のみか', () async {
+    test('取得は1件', () async {
       // 登録して取得
       await utils.updateUser(_user);
       await utils.updateUser(_user);

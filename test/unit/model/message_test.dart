@@ -1,4 +1,3 @@
-import 'package:firebase_template_app/model/fire_user/fire_user.dart';
 import 'package:firebase_template_app/model/message/message.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

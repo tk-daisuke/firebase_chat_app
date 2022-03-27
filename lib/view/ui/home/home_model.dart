@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final homeModelProvider = ChangeNotifierProvider((ref) => HomeModel(ref.read));
-final currentRoom = Provider<Room>((watch) => throw UnimplementedError());
+
 // final currentUser = Provider<User>((watch) => throw UnimplementedError());
 
 class HomeModel extends ChangeNotifier {

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_template_app/model/message/message.dart';
 import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/service/firestore/base/firestore_base.dart';
 
@@ -15,10 +16,34 @@ class RoomRepository extends FirebaseFirestoreBase {
         toFirestore: (room, _) => room.toJson(),
       );
 
+  CollectionReference<Message> currentRoomMessages(String id) {
+    return _firestore
+        .collection('rooms')
+        .doc(id)
+        .collection('messages')
+        .withConverter<Message>(
+          fromFirestore: (snapshot, _) => Message.fromJson(snapshot.data()!),
+          toFirestore: (message, _) => message.toJson(),
+        );
+  }
+
   // Query<Map<String, dynamic>> _fetchFirendRoom(
   //         {required String myUID, required String firendUID}) =>
   //     _firestore.collection('rooms').where('entrant',
   //         whereIn: [myUID]);
+  Future<void> sendMessage(
+      {required String roomID,
+      required String myUID,
+      required String text}) async {
+    final message = Message(
+      text: text,
+      postUserID: myUID,
+    ).toJson()
+      ..['createdAT'] = serverTimeStamp;
+    final _path =
+        _firestore.collection('rooms').doc(roomID).collection('messages');
+    await _path.add(message);
+  }
 
   Future<bool> addFriend(
       {required String friendUID, required String myUID}) async {

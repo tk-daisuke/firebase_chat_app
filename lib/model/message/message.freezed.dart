@@ -25,7 +25,7 @@ class _$MessageTearOff {
   _Message call(
       {required String text,
       required String postUserID,
-      @ServerTimestampConverter() required DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? createdAt,
       @ServerTimestampConverter() DateTime? updatedAt}) {
     return _Message(
       text: text,
@@ -159,7 +159,7 @@ class _$_Message extends _Message with DiagnosticableTreeMixin {
   const _$_Message(
       {required this.text,
       required this.postUserID,
-      @ServerTimestampConverter() required this.createdAt,
+      @ServerTimestampConverter() this.createdAt,
       @ServerTimestampConverter() this.updatedAt})
       : super._();
 
@@ -228,7 +228,7 @@ abstract class _Message extends Message {
   const factory _Message(
       {required String text,
       required String postUserID,
-      @ServerTimestampConverter() required DateTime? createdAt,
+      @ServerTimestampConverter() DateTime? createdAt,
       @ServerTimestampConverter() DateTime? updatedAt}) = _$_Message;
   const _Message._() : super._();
 
