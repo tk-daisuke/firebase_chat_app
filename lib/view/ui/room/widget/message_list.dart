@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_template_app/model/message/message.dart';
-import 'package:firebase_template_app/model/room/room.dart';
 import 'package:firebase_template_app/view/ui/room/room_model.dart';
 import 'package:firebase_template_app/view/utils/chat_bubble.dart';
+import 'package:firebase_template_app/view/utils/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 class MessageList extends ConsumerWidget {
   const MessageList({
     Key? key,
@@ -16,13 +17,23 @@ class MessageList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _model = ref.read(roomModelProvider);
+
     return StreamBuilder<QuerySnapshot<Message>>(
       stream: _model.fetchCurrentRoomStream(docID),
       builder: ((context, snapshot) {
+        // ロード中
         // ignore: prefer-conditional-expressions
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
-        } else {
+        }
+        // エラー発生
+        else if (snapshot.hasError) {
+          return ErrorMessage(
+              errorText: snapshot.error.toString(), reloadMethod: () {});
+        }
+        // ロード終了、エラーなし
+        else {
+          // 取得した中にデータはあったか
           return snapshot.hasData
               ? ListView.builder(
                   itemCount: snapshot.data?.docs.length,
@@ -35,7 +46,9 @@ class MessageList extends ConsumerWidget {
                         isCurrentUser: isCurrentUser, message: doc!.data());
                   }),
                   shrinkWrap: true)
-              : const Text('no data');
+              :
+              // データなし
+              const Text('no data');
         }
       }),
     );

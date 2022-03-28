@@ -14,10 +14,11 @@ class ErrorMessage extends StatelessWidget {
           Text(
             errorText.toString(),
           ),
-          TextButton(
-            onPressed: reloadMethod,
-            child: const Text('再読み込み'),
-          ),
+          if (reloadMethod != () {})
+            TextButton(
+              onPressed: reloadMethod,
+              child: const Text('再読み込み'),
+            ),
         ],
       ),
     );

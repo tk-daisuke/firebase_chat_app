@@ -21,6 +21,7 @@ class RoomModel extends ChangeNotifier {
   RoomModel(this._read);
 
   String? get currentUserUID => FirebaseAuthService(_read).firebaseUID;
+
   Stream<QuerySnapshot<Message>> fetchCurrentRoomStream(String id) {
     final stream = RoomRepository().currentRoomMessages(id).snapshots();
     return stream;
@@ -30,20 +31,23 @@ class RoomModel extends ChangeNotifier {
   Future<void> pushMessage(
     BuildContext context, {
     required String docID,
-    required TextEditingController chatMessageController,
+    required TextEditingController chatFormController,
     required StateController<String> chatMessageState,
   }) async {
+    // Loading
     final progress = ProgressHUD.of(context);
     progress?.show();
+    // 送信中
     final send = await _sendMessage(docID, chatMessageState.state);
+    // ロード終了
     progress?.dismiss();
+    // 成功
     if (send) {
-      if (kDebugMode) {
-        print('送信しました');
-      }
-      chatMessageController.clear();
+      chatFormController.clear();
       chatMessageState.state = '';
-    } else {
+    } 
+    //失敗
+    else {
       const snackBar = SnackBar(
         content: Text('通信エラーが発生しました。'),
       );
@@ -54,11 +58,16 @@ class RoomModel extends ChangeNotifier {
   Future<bool> _sendMessage(String roomID, String text) async {
     final uid = currentUserUID;
     try {
+      // 送信
       await RoomRepository()
           .sendMessage(roomID: roomID, myUID: uid!, text: text);
+          // 成功
       return true;
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
+      // 失敗
       return false;
     }
   }
